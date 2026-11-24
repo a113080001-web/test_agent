@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Antigravity 破冰成功！</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%);
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang TC", "Microsoft JhengHei", sans-serif;
+      padding: 20px;
+      overflow-x: hidden;
+    }
+
+    /* 背景柔和光暈裝飾 */
+    .bg-glow {
+      position: fixed;
+      width: 450px;
+      height: 450px;
+      border-radius: 50%;
+      filter: blur(80px);
+      z-index: 0;
+      opacity: 0.6;
+      pointer-events: none;
+    }
+
+    .bg-glow-1 {
+      top: 10%;
+      left: 15%;
+      background: #fed6e3;
+    }
+
+    .bg-glow-2 {
+      bottom: 10%;
+      right: 15%;
+      background: #a8edea;
+    }
+
+    /* 粉彩漸層卡片 */
+    .card {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 460px;
+      padding: 48px 36px;
+      border-radius: 28px;
+      background: linear-gradient(145deg, rgba(255, 238, 240, 0.85) 0%, rgba(220, 237, 248, 0.85) 50%, rgba(240, 230, 255, 0.85) 100%);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      box-shadow:
+        0 20px 40px rgba(120, 130, 160, 0.12),
+        0 1px 3px rgba(255, 255, 255, 0.8) inset;
+      border: 1px solid rgba(255, 255, 255, 0.6);
+      text-align: center;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow:
+        0 26px 50px rgba(120, 130, 160, 0.18),
+        0 1px 3px rgba(255, 255, 255, 0.9) inset;
+    }
+
+    .card-title {
+      font-size: 1.85rem;
+      font-weight: 700;
+      color: #2d3748;
+      margin-bottom: 12px;
+      letter-spacing: -0.02em;
+    }
+
+    .card-subtitle {
+      font-size: 0.95rem;
+      color: #718096;
+      margin-bottom: 36px;
+      line-height: 1.5;
+    }
+
+    /* 精美發光按鈕 */
+    .glow-btn {
+      position: relative;
+      padding: 16px 38px;
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: #ffffff;
+      border: none;
+      border-radius: 9999px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      cursor: pointer;
+      outline: none;
+      box-shadow:
+        0 6px 20px rgba(102, 126, 234, 0.4),
+        0 0 15px rgba(118, 75, 162, 0.3);
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      user-select: none;
+    }
+
+    .glow-btn:hover {
+      transform: translateY(-2px) scale(1.02);
+      box-shadow:
+        0 10px 25px rgba(102, 126, 234, 0.6),
+        0 0 25px rgba(118, 75, 162, 0.5);
+    }
+
+    .glow-btn:active {
+      transform: translateY(1px) scale(0.98);
+      box-shadow:
+        0 4px 12px rgba(102, 126, 234, 0.4),
+        0 0 10px rgba(118, 75, 162, 0.3);
+    }
+
+    /* 結果回饋區域 */
+    .result-section {
+      margin-top: 32px;
+      min-height: 90px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .counter-badge {
+      display: inline-block;
+      padding: 4px 14px;
+      background: rgba(255, 255, 255, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.8);
+      border-radius: 9999px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #4a5568;
+      transition: all 0.3s ease;
+    }
+
+    .quote-box {
+      font-size: 1.05rem;
+      font-weight: 500;
+      color: #3b4252;
+      line-height: 1.6;
+      opacity: 0;
+      transform: translateY(6px);
+      transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+
+    .quote-box.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body>
+  <div class="bg-glow bg-glow-1"></div>
+  <div class="bg-glow bg-glow-2"></div>
+
+  <div class="card">
+    <h1 class="card-title">Antigravity 破冰成功！</h1>
+    <p class="card-subtitle">點擊下方按鈕，接收今天專屬的靈感與祝福 ✨</p>
+
+    <button id="icebreakerBtn" class="glow-btn">點我領取祝福 🌟</button>
+
+    <div class="result-section">
+      <div id="counterBadge" class="counter-badge" style="display: none;">已點擊 0 次</div>
+      <p id="quoteBox" class="quote-box">點擊按鈕開啟驚喜！</p>
+    </div>
+  </div>
+
+  <script>
+    const quotes = [
+      "每一步都是前進的起點，繼續保持！✨",
+      "程式碼如詩，今天也是充滿創造力的一天！🚀",
+      "靈感正在悄悄萌芽，準備迎接美好成果！🌱",
+      "無論遇到什麼挑戰，你都能迎刃而解！💪",
+      "每一次嘗試，都在讓未來的自己更加強大！🌟",
+      "保持好奇心，與 Antigravity 一同探索無限可能！🪐",
+      "你的潛力超乎想像，享受 coding 的樂趣吧！🎉",
+      "破冰順利，接下來的冒險一定精彩萬分！🔥"
+    ];
+
+    let count = 0;
+    const btn = document.getElementById('icebreakerBtn');
+    const counterBadge = document.getElementById('counterBadge');
+    const quoteBox = document.getElementById('quoteBox');
+
+    btn.addEventListener('click', () => {
+      count++;
+
+      // 更新點擊次數
+      counterBadge.style.display = 'inline-block';
+      counterBadge.textContent = `已點擊 ${count} 次`;
+
+      // 隨機選取鼓勵小語
+      const randomIndex = Math.floor(Math.random() * quotes.length);
+      const selectedQuote = quotes[randomIndex];
+
+      // 平滑切換小語文字動畫
+      quoteBox.classList.remove('show');
+      setTimeout(() => {
+        quoteBox.textContent = selectedQuote;
+        quoteBox.classList.add('show');
+      }, 150);
+    });
+  </script>
+</body>
+</html>
